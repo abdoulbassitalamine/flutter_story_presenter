@@ -54,7 +54,7 @@ Use `FlutterStoryPresenter` to display stories on any screen. It accepts a list 
 
 ```dart
 FlutterStoryPresenter(
-    controller : FlutterStoryController(),
+   flutterStoryController : FlutterStoryController(),
     items: [
         /// For Image Story Item
         StoryItem(
@@ -140,7 +140,7 @@ final Widget? footerWidget;
 ```dart
 final storyController = FlutterStoryController();
 FlutterStoryPresenter(
-    controller : storyController,
+    flutterStoryController : storyController,
     items: [
         /// Story Item goes here
     ]
@@ -163,6 +163,7 @@ The `StoryItem` class is used to define the individual items displayed in a `Flu
 ```dart
 const StoryItem({
   this.url,
+  this.httpHeaders
   required this.storyItemType,
   this.thumbnail,
   this.isMuteByDefault = false,
@@ -180,6 +181,7 @@ const StoryItem({
 #### Parameters
 
 - **url**: The URL, file path, or web URL of the story item. Required unless `storyItemType` is `custom`.
+- **httpHeaders**: HTTP headers to include when loading network content, e.g. for authentication.
 - **storyItemType**: The type of story item. Required. It can be an image, video, text, web content, or custom.
 - **thumbnail**: A widget to display as a thumbnail.
 - **isMuteByDefault**: A boolean indicating whether the video should be muted by default. Applicable when `storyItemType` is `video`.

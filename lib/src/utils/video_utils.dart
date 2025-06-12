@@ -16,6 +16,7 @@ class VideoUtils {
   // If cacheFile is true, it attempts to cache the video file.
   Future<VideoPlayerController> videoControllerFromUrl({
     required String url,
+    Map<String, String>? httpHeaders = const {},
     bool? cacheFile = false,
     VideoPlayerOptions? videoPlayerOptions,
   }) async {
@@ -23,7 +24,7 @@ class VideoUtils {
       File? cachedVideo;
       // If caching is enabled, try to get the cached file.
       if (cacheFile ?? false) {
-        cachedVideo = await _cacheManager.getSingleFile(url);
+        cachedVideo = await _cacheManager.getSingleFile(url, headers: httpHeaders);
       }
       // If a cached video file is found, create a VideoPlayerController from it.
       if (cachedVideo != null) {
@@ -36,6 +37,7 @@ class VideoUtils {
       debugPrint(e.toString());
     }
     // If no cached file is found, create a VideoPlayerController from the network URL.
+    debugPrint("Video is not cached. HTTP headers: $httpHeaders, url: $url");
     return VideoPlayerController.networkUrl(
       Uri.parse(url),
       videoPlayerOptions: videoPlayerOptions,
